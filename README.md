@@ -10,14 +10,18 @@ If you just want to follow along in the lab, the ipynb files are viewable but no
 Run the following code in the command line, which depends only on you having a system Python and 
 Anaconda installed somewhere. Tested on Mac OS and Ubuntu. No promises for Windows, sorry.
 
+```
 pyvenv ./ifds_env_test
 source ifds_env_test/bin/activate
 
 pip install pywavelets scikit-image pillow imageio matplotlib scipy pybm3d torch==1.2
 ipython kernel install --user --name=ifds_env_test
+```
 
-Then open a jupyter notebook with the command:
+Then open a jupyter notebook with the command:  
+```
 jupyter notebook
+```
 
 And open an ipynb file and enjoy!
 
