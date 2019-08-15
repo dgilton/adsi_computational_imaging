@@ -45,7 +45,7 @@ def waveletDenoiseColor(input_image, shrinkage_parameter):
     return output_image
 
 
-def waveletDenoise(input_image, shrinkage_parameter):
+def waveletDenoise(input_image, shrinkage_parameter, thresholding='soft'):
     # if not is_input_valid(input_image):
     #     return
 
@@ -53,7 +53,13 @@ def waveletDenoise(input_image, shrinkage_parameter):
 
     wavelet_coeffs = forward_wavelet_transform(input_image, max_n_levels)
 
-    thresholded_coeffs = soft_threshold(wavelet_coeffs, shrinkage_parameter)
+    if thresholding=='soft':
+        thresholded_coeffs = soft_threshold(wavelet_coeffs, shrinkage_parameter)
+    elif thresholding=='hard':
+        thresholded_coeffs = hard_threshold(wavelet_coeffs, shrinkage_parameter)
+    else:
+        print('Thresholding must be "hard" or "soft".')
+
     # Alternately! Try playing with the mode parameter here. Test out 'hard', 'greater', or 'garrote'
     # thresholded_coeffs = pywt.threshold(wavelet_coeffs, shrinkage_parameter, mode='soft')
 
@@ -135,7 +141,13 @@ def soft_threshold(theta, threshold):
     # normalized_theta = theta / np.abs(theta)
     theta_abs = np.abs(theta)
     normalized_theta = np.sign(theta)
-    return normalized_theta * np.maximum(theta_abs - threshold,0)
+    return normalized_theta * np.maximum(theta_abs - np.abs(threshold),0)
+
+def hard_threshold(theta, threshold):
+    # normalized_theta = theta / np.abs(theta)
+    theta_abs = np.abs(theta)
+    normalized_theta = np.sign(theta)
+    return normalized_theta * (np.maximum(theta_abs - np.abs(threshold),0) + np.abs(threshold))
 
 def inverse_wavelet_transform(wavelet_coeffs, n_levels):
     L = np.int_(np.log2(np.shape(wavelet_coeffs)[0]))
