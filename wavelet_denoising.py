@@ -144,10 +144,9 @@ def soft_threshold(theta, threshold):
     return normalized_theta * np.maximum(theta_abs - np.abs(threshold),0)
 
 def hard_threshold(theta, threshold):
-    # normalized_theta = theta / np.abs(theta)
     theta_abs = np.abs(theta)
     normalized_theta = np.sign(theta)
-    return normalized_theta * (np.maximum(theta_abs - np.abs(threshold),0) + np.abs(threshold))
+    return normalized_theta * (np.clip(theta_abs,a_min=threshold, a_max=None))
 
 def inverse_wavelet_transform(wavelet_coeffs, n_levels):
     L = np.int_(np.log2(np.shape(wavelet_coeffs)[0]))
