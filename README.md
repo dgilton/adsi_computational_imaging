@@ -7,8 +7,12 @@ University of Washington.
 If you just want to follow along in the lab, the ipynb files are viewable but not runnable on Github.
 
 ## Running this in a virtual environment
-Run the following code in the command line, which depends only on you having a system Python and 
+Run the following code in the command line, which depends on you having a system Python and 
 Anaconda installed somewhere. Tested on Mac OS and Ubuntu. No promises for Windows, sorry.
+
+pybm3d may fail to install if you do not have fftw installed. This only impacts the BM3D
+portion of the demonstrations. For more info and instructions visit the pybm3d repository at:
+https://github.com/ericmjonas/pybm3d
 
 ```
 pyvenv ./ifds_env_test
